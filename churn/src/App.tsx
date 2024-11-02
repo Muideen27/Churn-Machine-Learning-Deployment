@@ -9,6 +9,9 @@ const theme = createTheme({
     primary: {
       main: '#e91e63', // Custom primary color
     },
+    secondary: {
+      main: 'ffffff'
+    }
   },
   typography: {
     fontFamily: 'Poppins, Arial, sans-serif', // Set Poppins as the primary font
