@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
+import LandingPage from './component/LandingPage';
 
 // Define the theme with Poppins font and primary color
 const theme = createTheme({
@@ -15,9 +15,7 @@ const theme = createTheme({
   },
 });
 
-
-
-function App() {
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
