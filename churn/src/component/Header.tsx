@@ -8,35 +8,39 @@ import Container from '@mui/material/Container';
 
 const Header: React.FC = () => {
   return (
-    <AppBar position="static" className="tw-bg-white tw-shadow-md">
+    <AppBar position="static" color="primary">
       <Container maxWidth="lg">
-        <Toolbar disableGutters className="tw-flex tw-justify-between tw-items-center tw-py-1">
-          
+        <Toolbar disableGutters>
           {/* Logo Section (Left) */}
-          <Box className="tw-flex tw-items-center">
-            <img src="/src/assets/01.png" alt="FINTECH Bank Logo" className="tw-h-8 tw-mr-2" /> {/* Reduced to 32px height */}
+          <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+            <img src="/src/assets/01.png" alt="FINTECH Bank Logo" style={{ height: 30, marginRight: 8 }} />
             <Typography
               variant="h6"
               noWrap
               component="div"
-              className="tw-font-bold tw-text-gray-800 tw-tracking-wide"
+              sx={{
+                fontWeight: 700,
+                letterSpacing: '.2rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
             >
               FINTECH Bank
             </Typography>
           </Box>
 
           {/* Center Navigation Buttons */}
-          <Box className="tw-flex tw-space-x-4">
-            <Button color="inherit" className="tw-font-medium tw-text-gray-800 tw-text-sm">
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+            <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
               About
             </Button>
-            <Button color="inherit" className="tw-font-medium tw-text-gray-800 tw-text-sm">
+            <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
               Contact
             </Button>
           </Box>
 
           {/* Get Started Button (Right) */}
-          <Button variant="contained" className="tw-font-semibold tw-text-white tw-bg-gray-800 tw-px-4 tw-py-1">
+          <Button variant="contained" color="secondary" sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}>
             Get Started
           </Button>
         </Toolbar>
