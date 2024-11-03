@@ -8,39 +8,35 @@ import Container from '@mui/material/Container';
 
 const Header: React.FC = () => {
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" className="tw-bg-white tw-shadow-md">
       <Container maxWidth="lg">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters className="tw-flex tw-justify-between tw-items-center tw-py-1">
+          
           {/* Logo Section (Left) */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
-            <img src="/src/assets/01.png" alt="FINTECH Bank Logo" style={{ height: 0, marginRight: 8 }} />
+          <Box className="tw-flex tw-items-center">
+            <img src="/src/assets/01.png" alt="FINTECH Bank Logo" className="tw-h-8 tw-mr-2" /> {/* Reduced to 32px height */}
             <Typography
               variant="h6"
               noWrap
               component="div"
-              sx={{
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
+              className="tw-font-bold tw-text-gray-800 tw-tracking-wide"
             >
               FINTECH Bank
             </Typography>
           </Box>
 
           {/* Center Navigation Buttons */}
-          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-            <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+          <Box className="tw-flex tw-space-x-4">
+            <Button color="inherit" className="tw-font-medium tw-text-gray-800 tw-text-sm">
               About
             </Button>
-            <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+            <Button color="inherit" className="tw-font-medium tw-text-gray-800 tw-text-sm">
               Contact
             </Button>
           </Box>
 
           {/* Get Started Button (Right) */}
-          <Button variant="contained" color="secondary" sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}>
+          <Button variant="contained" className="tw-font-semibold tw-text-white tw-bg-gray-800 tw-px-4 tw-py-1">
             Get Started
           </Button>
         </Toolbar>
