@@ -8,12 +8,13 @@ import Container from '@mui/material/Container';
 
 const Header: React.FC = () => {
   return (
+    <Box sx={{ mt: 2, mb: 4 }}>
     <AppBar position="static" color="primary">
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           {/* Logo Section (Left) */}
           <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
-            <img src="/src/assets/01.png" alt="FINTECH Bank Logo" style={{ height: 30, marginRight: 8 }} />
+            <img src="/src/assets/01.png" alt="FINTECH Bank Logo" style={{ height: 50, marginRight: 8 }} />
             <Typography
               variant="h6"
               noWrap
@@ -46,6 +47,7 @@ const Header: React.FC = () => {
         </Toolbar>
       </Container>
     </AppBar>
+    </Box>
   );
 };
 
