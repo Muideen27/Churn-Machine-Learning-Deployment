@@ -1,18 +1,29 @@
 import React from 'react';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
-const SignIn: React.FC = () => {
-  const [open, setOpen] = React.useState(true);
-  const navigate = useNavigate();
+interface SignInProps {
+  onClose: () => void;
+  onSwitch: () => void;
+}
 
-  const handleClose = () => setOpen(false);
-
+const SignIn: React.FC<SignInProps> = ({ onClose, onSwitch }) => {
   return (
-    <Modal open={open} onClose={handleClose} className="tw-flex tw-justify-center tw-items-center">
-      <Box className="tw-bg-white tw-p-8 tw-rounded-lg tw-shadow-md tw-w-96">
-        <Typography variant="h5" className="tw-font-bold tw-text-center tw-mb-6">Sign In</Typography>
-        
+    <Modal open={true} onClose={onClose} className="tw-flex tw-justify-center tw-items-center">
+      <Box
+        className="tw-bg-white tw-p-8 tw-rounded-lg tw-shadow-lg"
+        sx={{
+          width: '100%',
+          maxWidth: 400, // Limit width for a more compact look
+          mx: 'auto',
+          my: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <Typography variant="h5" className="tw-font-bold tw-text-center tw-mb-6">
+          Sign In
+        </Typography>
+
         {/* Email and Password Fields */}
         <TextField
           label="Email Address"
@@ -51,7 +62,7 @@ const SignIn: React.FC = () => {
         {/* Switch to Sign Up */}
         <Typography variant="body2" className="tw-text-center tw-mt-4">
           Don't have an account?{' '}
-          <Button color="primary" onClick={() => navigate('/signup')} className="tw-font-bold">
+          <Button color="primary" onClick={onSwitch} className="tw-font-bold">
             Sign Up
           </Button>
         </Typography>

@@ -1,15 +1,14 @@
 import React from 'react';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
-const SignUp: React.FC = () => {
-  const [open, setOpen] = React.useState(true);
-  const navigate = useNavigate();
+interface SignUpProps {
+  onClose: () => void;
+  onSwitch: () => void;
+}
 
-  const handleClose = () => setOpen(false);
-
+const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
   return (
-    <Modal open={open} onClose={handleClose} className="tw-flex tw-justify-center tw-items-center">
+    <Modal open={true} onClose={onClose} className="tw-flex tw-justify-center tw-items-center">
       <Box className="tw-bg-white tw-p-8 tw-rounded-lg tw-shadow-md tw-w-96">
         <Typography variant="h5" className="tw-font-bold tw-text-center tw-mb-6">Sign Up</Typography>
 
@@ -51,7 +50,7 @@ const SignUp: React.FC = () => {
         {/* Switch to Sign In */}
         <Typography variant="body2" className="tw-text-center tw-mt-4">
           Already have an account?{' '}
-          <Button color="primary" onClick={() => navigate('/signin')} className="tw-font-bold">
+          <Button color="primary" onClick={onSwitch} className="tw-font-bold">
             Sign In
           </Button>
         </Typography>
