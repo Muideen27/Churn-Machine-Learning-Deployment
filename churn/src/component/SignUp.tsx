@@ -8,9 +8,31 @@ interface SignUpProps {
 
 const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
   return (
-    <Modal open={true} onClose={onClose} className="tw-flex tw-justify-center tw-items-center">
-      <Box className="tw-bg-white tw-p-8 tw-rounded-lg tw-shadow-md tw-w-96">
-        <Typography variant="h5" className="tw-font-bold tw-text-center tw-mb-6">Sign Up</Typography>
+    <Modal open={true} onClose={onClose} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          backgroundColor: 'white', // White background
+          padding: 4, // Padding inside the modal
+          borderRadius: 2, // Rounded corners
+          boxShadow: 3, // Shadow for elevation
+          width: '100%',
+          maxWidth: 400, // Max width to contain it
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <Typography variant="h5" sx={{ fontWeight: 'bold', textAlign: 'center', marginBottom: 3 }}>
+          Sign Up
+        </Typography>
+
+        {/* Sign Up with Google */}
+        <Button
+          variant="outlined"
+          fullWidth
+          sx={{ marginBottom: 2, borderColor: 'gray', color: 'gray' }}
+        >
+          Sign up with Google
+        </Button>
 
         {/* Email and Password Fields */}
         <TextField
@@ -18,14 +40,14 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
           type="email"
           fullWidth
           variant="outlined"
-          className="tw-mb-4"
+          sx={{ marginBottom: 2 }}
         />
         <TextField
           label="Password"
           type="password"
           fullWidth
           variant="outlined"
-          className="tw-mb-6"
+          sx={{ marginBottom: 3 }}
         />
 
         {/* Sign Up Button */}
@@ -33,24 +55,15 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
           variant="contained"
           color="primary"
           fullWidth
-          className="tw-mb-4 tw-bg-gray-800 tw-text-white"
+          sx={{ marginBottom: 2, backgroundColor: 'gray', color: 'white' }}
         >
           Sign Up
         </Button>
 
-        {/* Sign Up with Google */}
-        <Button
-          variant="outlined"
-          fullWidth
-          className="tw-mb-4 tw-border-gray-800 tw-text-gray-800"
-        >
-          Sign up with Google
-        </Button>
-
         {/* Switch to Sign In */}
-        <Typography variant="body2" className="tw-text-center tw-mt-4">
+        <Typography variant="body2" sx={{ textAlign: 'center', marginTop: 2 }}>
           Already have an account?{' '}
-          <Button color="primary" onClick={onSwitch} className="tw-font-bold">
+          <Button color="primary" onClick={onSwitch} sx={{ fontWeight: 'bold' }}>
             Sign In
           </Button>
         </Typography>
