@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Typography, Container, Grid } from '@mui/material';
 import Header from './Header';
+import Sponsor from './Sponsor';
 
 const LandingPage: React.FC = () => {
   return (
@@ -40,6 +41,10 @@ const LandingPage: React.FC = () => {
           />
         </Grid>
       </Grid>
+
+      {/* Sponsor Section */}
+      <Sponsor />
+      
     </Container>
   );
 };
