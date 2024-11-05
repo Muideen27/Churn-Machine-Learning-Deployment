@@ -15,12 +15,12 @@ const LandingPage: React.FC = () => {
         {/* Left Side - CTA Section */}
         <Grid item xs={12} md={6} marginTop={10}>
           <Box>
-            <Typography variant="h3" className="tw-font-bold tw-text-gray-800 tw-mb-4">
+            <Typography variant="h4" className="tw-font-bold tw-text-gray-800 tw-mb-4">
               Ready to Retain More Customers?
             </Typography>
-            <Typography variant="body1" className="tw-text-lg tw-text-gray-600 tw-mb-6">
-              Predict and Prevent Customer Churn with AI-Driven Insights
-            </Typography>
+            <p className="tw-text-lg tw-text-gray-600 tw-mb-6">
+              Our churn prediction model leverages transactional and behavioral data across 18 variables to proactively identify customers at risk of churning, helping reduce the bank’s exposure to customer loss and enabling targeted retention strategies.
+            </p>
             <Button
               variant="contained"
               color="primary"
