@@ -2,6 +2,7 @@ import React from 'react';
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './component/LandingPage';
+import HomePage from './component/HomePage';
 
 // Define the theme with Poppins font and primary color
 const theme = createTheme({
@@ -22,6 +23,8 @@ const App: React.FC = () => {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          {/* Routr for HomePage */}
+          <Route path="/home" element={<HomePage />} />
         </Routes>
       </Router>
     </ThemeProvider>
