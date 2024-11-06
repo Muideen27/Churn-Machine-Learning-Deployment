@@ -1,94 +1,84 @@
-import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import React from 'react';
+import { Box, Typography, Container, Divider, Grid, Button } from '@mui/material';
+import Header from './Header';
 
-const Header: React.FC = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(true);
-
-  const handleOpenSignIn = () => {
-    setIsSignIn(true);
-    setModalOpen(true);
-  };
-
-  const handleOpenSignUp = () => {
-    setIsSignIn(false);
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
+const HomePage: React.FC = () => {
   return (
-    <Box sx={{ mt: 2, mb: 4 }}>
-      <AppBar position="static" color="primary">
-        <Container maxWidth="lg">
-          <Toolbar disableGutters>
-            {/* Logo Section (Left) */}
-            <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
-              <img src="/src/assets/01.png" alt="FINTECH Bank Logo" style={{ height: 70, marginRight: 8 }} />
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{
-                  fontWeight: 700,
-                  letterSpacing: '.2rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}
-              >
-                FINTECH Bank
-              </Typography>
-            </Box>
+    <Container maxWidth="lg" className="tw-h-screen tw-flex tw-flex-col tw-py-8 tw-bg-white">
+      {/* Header Section */}
+      <Header />
 
-            {/* Center Navigation Buttons */}
-            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                About
-              </Button>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                Predict
-              </Button>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                EDA
-              </Button>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                ML Models Analysis
-              </Button>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                Portfolio
-              </Button>
-            </Box>
+      {/* Main Content Section */}
+      <Box className="tw-flex tw-flex-col tw-text-center tw-my-8">
+        <Typography variant="h3" className="tw-font-bold tw-text-primary tw-mb-4">
+          Welcome to the Customer Churn Prediction Platform
+        </Typography>
+        <Typography variant="body1" className="tw-text-lg tw-text-gray-600">
+          Unlock actionable insights to predict and prevent customer churn using cutting-edge machine learning models.
+        </Typography>
+      </Box>
 
-            {/* Get Started Button (Right) */}
-            <Button
-              variant="contained"
-              color="secondary"
-              sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}
-              onClick={handleOpenSignIn} // Open SignIn modal by default
-            >
-              Get Started
-            </Button>
-          </Toolbar>
-        </Container>
-      </AppBar>
+      <Divider className="tw-my-8" />
 
-      {/* Conditionally render SignIn or SignUp modal */}
-      {modalOpen && isSignIn ? (
-        <SignIn onClose={handleCloseModal} onSwitch={() => handleOpenSignUp()} />
-      ) : modalOpen && !isSignIn ? (
-        <SignUp onClose={handleCloseModal} onSwitch={() => handleOpenSignIn()} />
-      ) : null}
-    </Box>
+      {/* Business Context Section */}
+      <Box sx={{ my: 4 }}>
+        <Typography variant="h5" className="tw-font-semibold tw-text-gray-800 tw-mb-2">
+          Business Context
+        </Typography>
+        <Typography variant="body1" className="tw-text-gray-700">
+          In today's highly competitive financial landscape, customer retention is more critical than ever for banks.
+          FINTECH Bank has observed a concerning trend: a growing number of customers are closing their accounts or
+          significantly reducing their engagement with the bank's services. Customer churn not only impacts the bank's
+          revenue but also increases the cost of acquiring new customers to replace those lost.
+        </Typography>
+      </Box>
+
+      <Divider className="tw-my-8" />
+
+      {/* Objective Section */}
+      <Box sx={{ my: 4 }}>
+        <Typography variant="h5" className="tw-font-semibold tw-text-gray-800 tw-mb-2">
+          Project Objective
+        </Typography>
+        <Typography variant="body1" className="tw-text-gray-700">
+          The objective of this project is to develop a robust Machine Learning model that accurately predicts customer
+          churn for FINTECH Bank. By leveraging historical customer data—including transaction patterns, product usage,
+          account tenure, and demographic information—the model aims to identify key factors contributing to customer
+          attrition.
+        </Typography>
+      </Box>
+
+      <Divider className="tw-my-8" />
+
+      {/* Data Description Section */}
+      <Box sx={{ my: 4 }}>
+        <Typography variant="h5" className="tw-font-semibold tw-text-gray-800 tw-mb-2">
+          Data Description
+        </Typography>
+        <Box className="tw-grid tw-grid-cols-2 tw-gap-4 tw-text-gray-700">
+          <Typography variant="body2"><strong>Acct_ID:</strong> Unique identifier for each customer account.</Typography>
+          <Typography variant="body2"><strong>YEARS_WITH_BANK:</strong> Number of years a customer has been with the bank.</Typography>
+          <Typography variant="body2"><strong>CHURN:</strong> Binary indicator of customer churn.</Typography>
+          <Typography variant="body2"><strong>RISK_RATING:</strong> Customer financial risk rating.</Typography>
+          <Typography variant="body2"><strong>CURRENCY:</strong> Account currency type.</Typography>
+          <Typography variant="body2"><strong>AVE BAL:</strong> Average balance in the account.</Typography>
+          <Typography variant="body2"><strong>MOBILE_APP_ADOPTION:</strong> Mobile app usage indicator.</Typography>
+          <Typography variant="body2"><strong>INTERNET_BANKING_ADOPTION:</strong> Internet banking usage indicator.</Typography>
+          <Typography variant="body2"><strong>LAST_12_MONTHS_CREDIT_VOLUME:</strong> Total credit transactions over the last year.</Typography>
+          <Typography variant="body2"><strong>LAST_12_MONTHS_DEBIT_VOLUME:</strong> Total debit transactions over the last year.</Typography>
+        </Box>
+      </Box>
+
+      <Divider className="tw-my-8" />
+
+      {/* Call to Action */}
+      <Box className="tw-text-center tw-mt-12">
+        <Button variant="contained" color="primary" className="tw-bg-primary tw-text-white tw-font-semibold tw-px-8 tw-py-3">
+          Explore the Model
+        </Button>
+      </Box>
+    </Container>
   );
 };
 
-export default Header;
+export default HomePage;
