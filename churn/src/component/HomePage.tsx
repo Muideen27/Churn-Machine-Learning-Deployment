@@ -55,13 +55,16 @@ const Header: React.FC = () => {
                 About
               </Button>
               <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                Contact
+                Predict
               </Button>
               <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                About
+                EDA
               </Button>
               <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                Contact
+                ML Models Analysis
+              </Button>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+                Portfolio
               </Button>
             </Box>
 
