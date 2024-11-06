@@ -57,6 +57,12 @@ const Header: React.FC = () => {
               <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
                 Contact
               </Button>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+                About
+              </Button>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+                Contact
+              </Button>
             </Box>
 
             {/* Get Started Button (Right) */}
