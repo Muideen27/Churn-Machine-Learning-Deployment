@@ -64,7 +64,7 @@ const Header: React.FC = () => {
                 ML Models Analysis
               </Button>
               <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
-                Portfolio
+                Team
               </Button>
             </Box>
 
