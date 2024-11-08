@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, Typography, Container, Divider, Grid, Button } from '@mui/material';
-import Header from './Header';
+import MainHeader from './MainHeader';
 
 const HomePage: React.FC = () => {
   return (
     <Container maxWidth="lg" className="tw-h-screen tw-flex tw-flex-col tw-py-8 tw-bg-white">
       {/* Header Section */}
-      <Header />
+      <MainHeader />
 
       {/* Main Content Section */}
       <Box className="tw-flex tw-flex-col tw-text-center tw-my-8">
