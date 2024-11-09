@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './component/LandingPage';
 import HomePage from './component/HomePage';
 import ModelAnalysis from './component/ModelAnalysis';
+import EDA from './component/EDA';
 
 // Define the theme with Poppins font and primary color
 const theme = createTheme({
@@ -28,6 +29,8 @@ const App: React.FC = () => {
           <Route path="/home" element={<HomePage />} />
           {/* Route for Machine Learning Model Analysis Page */}
           <Route path='ml-analysis'element={<ModelAnalysis />} />
+          {/* Route for EDA Page */}
+          <Route path='eda'element={<EDA />} />
         </Routes>
       </Router>
     </ThemeProvider>
