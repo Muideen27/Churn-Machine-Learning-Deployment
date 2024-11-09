@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Container, Divider, Grid, Button } from '@mui/material';
+import { Box, Typography, Container, Divider, Button } from '@mui/material';
 import MainHeader from './MainHeader';
 
 const HomePage: React.FC = () => {
