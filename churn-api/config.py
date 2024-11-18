@@ -1,7 +1,6 @@
 import os
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY', 'supersecretkey')
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'your_postgres_render_url')
+    SQLALCHEMY_DATABASE_URI = 'postgresql://churn_v1g3_user:1CwnghVEArDqyNyu6q4gkuzQfmq5A0XZ@dpg-csngl9hu0jms738q5cjg-a:5432/churn_v1g3'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'jwtsecretkey')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'your_secret_key')
