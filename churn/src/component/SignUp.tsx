@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
+import axios from 'axios';
 
 interface SignUpProps {
   onClose: () => void;
@@ -7,16 +8,38 @@ interface SignUpProps {
 }
 
 const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('SignUp form submitted'); // Log form submission
+
+    try {
+      console.log('Sending signup request with:', { email, password }); // Log request payload
+      const response = await axios.post('http://127.0.0.1:5000/auth/signup', { email, password });
+      console.log('Signup response:', response.data); // Log server response
+      setSuccess(response.data.message);
+      setError('');
+    } catch (err: any) {
+      console.log('Signup error:', err.response?.data || err.message); // Log error response
+      setError(err.response?.data?.message || 'Sign-up failed!');
+      setSuccess('');
+    }
+  };
+
   return (
     <Modal open={true} onClose={onClose} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Box
         sx={{
-          backgroundColor: 'white', // White background
-          padding: 4, // Padding inside the modal
-          borderRadius: 2, // Rounded corners
-          boxShadow: 3, // Shadow for elevation
+          backgroundColor: 'white',
+          padding: 4,
+          borderRadius: 2,
+          boxShadow: 3,
           width: '100%',
-          maxWidth: 400, // Max width to contain it
+          maxWidth: 400,
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -25,7 +48,9 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
           Sign Up
         </Typography>
 
-        {/* Sign Up with Google */}
+        {error && <Typography color="error" variant="body2">{error}</Typography>}
+        {success && <Typography color="success" variant="body2">{success}</Typography>}
+
         <Button
           variant="outlined"
           fullWidth
@@ -34,12 +59,13 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
           Sign up with Google
         </Button>
 
-        {/* Email and Password Fields */}
         <TextField
           label="Email Address"
           type="email"
           fullWidth
           variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           sx={{ marginBottom: 2 }}
         />
         <TextField
@@ -47,20 +73,21 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
           type="password"
           fullWidth
           variant="outlined"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           sx={{ marginBottom: 3 }}
         />
 
-        {/* Sign Up Button */}
         <Button
           variant="contained"
           color="primary"
           fullWidth
           sx={{ marginBottom: 2, backgroundColor: 'gray', color: 'white' }}
+          onClick={handleSignUp}
         >
           Sign Up
         </Button>
 
-        {/* Switch to Sign In */}
         <Typography variant="body2" sx={{ textAlign: 'center', marginTop: 2 }}>
           Already have an account?{' '}
           <Button color="primary" onClick={onSwitch} sx={{ fontWeight: 'bold' }}>
