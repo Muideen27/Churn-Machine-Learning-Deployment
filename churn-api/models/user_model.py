@@ -1,8 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from __init__ import db
 
 class User(db.Model):
+    __tablename__ = 'users'  # Explicitly specify the table name
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
