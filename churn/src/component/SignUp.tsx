@@ -7,6 +7,10 @@ interface SignUpProps {
   onSwitch: () => void;
 }
 
+interface SignUpResponse {
+  message: string;
+}
+
 const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,23 +19,31 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('SignUp form submitted'); // Log form submission
+    console.log('SignUp form submitted');
 
     try {
       console.log('Sending signup request with:', { email, password }); // Log request payload
-      const response = await axios.post('http://127.0.0.1:5000/auth/signup', { email, password });
-      console.log('Signup response:', response.data); // Log server response
+      const response = await axios.post<SignUpResponse>('http://127.0.0.1:5000/auth/signup', {
+        email,
+        password,
+      });
+
+      console.log('Signup response:', response.data);
       setSuccess(response.data.message);
       setError('');
     } catch (err: any) {
-      console.log('Signup error:', err.response?.data || err.message); // Log error response
+      console.log('Signup error:', err.response?.data || err.message);
       setError(err.response?.data?.message || 'Sign-up failed!');
       setSuccess('');
     }
   };
 
   return (
-    <Modal open={true} onClose={onClose} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Modal
+      open={true}
+      onClose={onClose}
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    >
       <Box
         sx={{
           backgroundColor: 'white',
