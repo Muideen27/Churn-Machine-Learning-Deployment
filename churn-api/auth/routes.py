@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models import User
 from __init__ import db, bcrypt
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, unset_jwt_cookies
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -44,3 +44,11 @@ def signin():
         return jsonify(access_token=access_token, message="Login successful"), 200
 
     return jsonify(message="Invalid email or password"), 401
+
+
+@auth_bp.route('/signout', methods=['POST'])
+@jwt_required()
+def signout():
+    response = jsonify({"message": "Sign out successful"})
+    unset_jwt_cookies(response)  # Unset the JWT cookies (for token invalidation)
+    return response, 200
