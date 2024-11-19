@@ -5,13 +5,21 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
+
 
 const Header: React.FC = () => {
-  const handleSignOut = () => {
-    // Placeholder for sign-out logic
-    console.log('User signed out');
-  };
+  const navigate = useNavigate();
 
+  const handleSignOut = () => {
+    // Clear token from localStorage
+    localStorage.removeItem('access_token');
+
+    // Redirect to landing page
+    navigate('/');
+
+    console.log('User signed out successfully');
+  };
   return (
     <Box sx={{ mt: 2, mb: 4 }}>
       <AppBar position="static" color="primary">
