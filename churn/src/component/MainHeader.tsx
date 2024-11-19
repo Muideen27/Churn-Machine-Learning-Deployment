@@ -1,29 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
 
 const Header: React.FC = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(true);
-
-  const handleOpenSignIn = () => {
-    setIsSignIn(true);
-    setModalOpen(true);
-  };
-
-  const handleOpenSignUp = () => {
-    setIsSignIn(false);
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
+  const handleSignOut = () => {
+    // Placeholder for sign-out logic
+    console.log('User signed out');
   };
 
   return (
@@ -51,7 +37,7 @@ const Header: React.FC = () => {
 
             {/* Center Navigation Buttons */}
             <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-            <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
                 About
               </Button>
               <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
@@ -68,25 +54,18 @@ const Header: React.FC = () => {
               </Button>
             </Box>
 
-            {/* Get Started Button (Right) */}
+            {/* Sign Out Button (Right) */}
             <Button
               variant="contained"
               color="secondary"
               sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}
-              onClick={handleOpenSignIn} // Open SignIn modal by default
+              onClick={handleSignOut}
             >
-              Get Started
+              Sign Out
             </Button>
           </Toolbar>
         </Container>
       </AppBar>
-
-      {/* Conditionally render SignIn or SignUp modal */}
-      {modalOpen && isSignIn ? (
-        <SignIn onClose={handleCloseModal} onSwitch={() => handleOpenSignUp()} />
-      ) : modalOpen && !isSignIn ? (
-        <SignUp onClose={handleCloseModal} onSwitch={() => handleOpenSignIn()} />
-      ) : null}
     </Box>
   );
 };
