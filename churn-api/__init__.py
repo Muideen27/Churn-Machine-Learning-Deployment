@@ -23,7 +23,12 @@ def create_app():
     jwt.init_app(app)
     migrate.init_app(app, db)
 
+    # Register authentication blueprint
     from auth.routes import auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    # Register visualization blueprint
+    from visualizations.routes import visualizations_bp
+    app.register_blueprint(visualizations_bp, url_prefix='/api')
 
     return app
