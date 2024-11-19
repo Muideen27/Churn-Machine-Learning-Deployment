@@ -22,12 +22,12 @@ def univariate_analysis():
         if not result:
             return jsonify({"message": f"No data found for feature: {feature_name}"}), 404
 
-        # Convert result to JSON
+        # Convert result to JSON (flattened list for Chart.js compatibility)
         df = pd.DataFrame(result, columns=[feature_name])
-        return jsonify(df.to_dict(orient='records')), 200
+        return jsonify(df[feature_name].tolist()), 200
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": f"Error during univariate analysis: {str(e)}"}), 500
 
 # Bivariate Analysis
 @visualizations_bp.route('/api/bivariate', methods=['POST'])
@@ -46,11 +46,12 @@ def bivariate_analysis():
         if not result:
             return jsonify({"message": f"No data found for features: {feature1}, {feature2}"}), 404
 
+        # Convert result to JSON (list of paired values)
         df = pd.DataFrame(result, columns=[feature1, feature2])
-        return jsonify(df.to_dict(orient='records')), 200
+        return jsonify(df.to_dict(orient='list')), 200
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": f"Error during bivariate analysis: {str(e)}"}), 500
 
 # Multivariate Analysis
 @visualizations_bp.route('/api/multivariate', methods=['POST'])
@@ -69,8 +70,9 @@ def multivariate_analysis():
         if not result:
             return jsonify({"message": f"No data found for features: {', '.join(feature_names)}"}), 404
 
+        # Convert result to JSON (list of dictionaries)
         df = pd.DataFrame(result, columns=feature_names)
         return jsonify(df.to_dict(orient='records')), 200
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": f"Error during multivariate analysis: {str(e)}"}), 500
