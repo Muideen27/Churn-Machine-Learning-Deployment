@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LandingPage from './component/LandingPage';
 import HomePage from './component/HomePage';
 import ModelAnalysis from './component/ModelAnalysis';
@@ -19,6 +19,12 @@ const theme = createTheme({
   },
 });
 
+// function to check if the user is authenticated
+const isAuthenticated = () => {
+  const token = localStorage.getItem('access_token');
+  return !!token;
+};
+
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -28,7 +34,12 @@ const App: React.FC = () => {
           {/* Route for LandingPage */}
           <Route path="/" element={<LandingPage />} />
           {/* Route for HomePage */}
-          <Route path="/home" element={<HomePage />} />
+          <Route 
+            path="/home" 
+            element={
+              isAuthenticated() ? <HomePage /> : <Navigate to="/home" />
+            }
+            />
           {/* Route for Prediction Page */}
           <Route path="/predict" element={<PredictionPage />} />
           {/* Route for Machine Learning Model Analysis Page */}
