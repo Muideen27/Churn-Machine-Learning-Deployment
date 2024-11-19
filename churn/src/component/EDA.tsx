@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Container, Grid, Paper, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MainHeader from './MainHeader';
+import Button from '@mui/material/Button';
 
 const EDA: React.FC = () => {
   return (
@@ -19,39 +20,69 @@ const EDA: React.FC = () => {
         </Typography>
       </Box>
 
+      <br />
+      <br />
+
       {/* Content Section */}
       <Grid container spacing={4}>
         {/* Left Column - Explanations/Expandable Sections */}
         <Grid item xs={12} md={5}>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-              <Typography variant="h6" className="tw-font-semibold">Real-time Data Visualization</Typography>
+              <Typography variant="h6" className="tw-font-semibold">Univirate Analysis</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant="body1" className="tw-text-gray-700">
-                Explore live data visualizations including trends, patterns, and outliers for key metrics.
+                Explore live data visualizations including trends, patterns, and outliers for each features
+                <br />
+                <br />
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}
+                  >
+                Visualize
+                </Button>
               </Typography>
             </AccordionDetails>
           </Accordion>
 
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
-              <Typography variant="h6" className="tw-font-semibold">Key Performance Indicators</Typography>
+              <Typography variant="h6" className="tw-font-semibold">Bivirate Analysis</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant="body1" className="tw-text-gray-700">
-                Track vital metrics such as average balances, product adoption rates, and churn probabilities.
+                Selecet two features to visualize the relationship between them.
+                <br />
+                <br />
+                <Button
+                variant="contained"
+                color="secondary"
+                sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}
+                >
+                  Visualize
+                  </Button>
               </Typography>
             </AccordionDetails>
           </Accordion>
 
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
-              <Typography variant="h6" className="tw-font-semibold">Customer Segmentation</Typography>
+              <Typography variant="h6" className="tw-font-semibold">Multivariant Analysis</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant="body1" className="tw-text-gray-700">
-                Understand your customer base by analyzing segments based on behavior, demographics, and preferences.
+                Here in the section, you can visualize the relationship between multiple features at once.
+                <br />
+                <br />
+                <Button
+                variant="contained"
+                color="secondary"
+                sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}
+                >
+                  Visualize
+                  </Button>
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -70,20 +101,6 @@ const EDA: React.FC = () => {
             />
             <Typography variant="body2" className="tw-text-gray-600 tw-mt-2">
               This chart visualizes the distribution of customer expenses across various categories.
-            </Typography>
-          </Paper>
-
-          <Paper elevation={3} className="tw-p-4 tw-mb-4 tw-bg-white">
-            <Typography variant="h6" className="tw-font-semibold tw-mb-2 tw-text-gray-800">
-              Income vs. Expense Analysis
-            </Typography>
-            <img
-              src="/src/assets/incomeVsExpenseChart.png"
-              alt="Income vs. Expense"
-              className="tw-w-full tw-rounded-md tw-object-contain"
-            />
-            <Typography variant="body2" className="tw-text-gray-600 tw-mt-2">
-              Analyze monthly income and expense trends to identify potential areas for optimization.
             </Typography>
           </Paper>
         </Grid>
