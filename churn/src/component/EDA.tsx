@@ -1,37 +1,73 @@
-import React from 'react';
-import { Box, Typography, Container, Grid, Card, CardContent, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Container, Grid, Card, CardContent, Accordion, AccordionSummary, AccordionDetails, Modal, Button, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MainHeader from './MainHeader';
-import Button from '@mui/material/Button';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
+const features = [
+  'Acct_ID', 'YEARS_WITH_BANK', 'CHURN', 'RISK_RATING', 'CURRENCY',
+  'AVE_BAL', 'SCHEME_TYPE', 'MOBILE_APP_ADOPTION', 'INTERNET_BANKING_ADOPTION',
+  'USSD_BANKING_ADOPTION', 'DIGITAL_LOAN', 'UNSECURED_LOAN',
+  'TERMLOAN_STATUS', 'CREDIT_CARD', 'SUBSEGMENT',
+  'LAST_12_MONTHS_CREDIT_VOLUME', 'LAST_12_MONTHS_DEBIT_VOLUME',
+  'LAST_12_MONTHS_DEBIT_VALUE', 'LAST_12_MONTHS_CREDIT_VALUE'
+];
+
+const visualizationTypes = ['Bar Chart', 'Scatter Plot', 'Line Graph', 'Pie Chart'];
+
+const insightsData = [
+  {
+    title: 'Total Observations',
+    value: '500,000',
+    change: '+1.1%',
+    trend: 'up',
+  },
+  {
+    title: 'Total Features',
+    value: '19',
+    change: '+1.1%',
+    trend: 'up',
+  },
+  {
+    title: 'Total Signups',
+    value: '20',
+    change: '-0.2%',
+    trend: 'down',
+  },
+];
+
 const EDA: React.FC = () => {
-  // Dummy dynamic data
-  const insightsData = [
-    {
-      title: 'Total Observations',
-      value: '500,000',
-      change: '+1.1%',
-      trend: 'up',
-    },
-    {
-      title: 'Total Features',
-      value: '19',
-      change: '+1.1%',
-      trend: 'up',
-    },
-    {
-      title: 'Total Signups',
-      value: '20',
-      change: '-0.2%',
-      trend: 'down',
-    },
-  ];
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [visualizationType, setVisualizationType] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [analysisType, setAnalysisType] = useState<'univariate' | 'bivariate' | 'multivariate' | null>(null);
+
+  const handleFeatureSelect = (feature: string) => {
+    if (selectedFeatures.includes(feature)) {
+      setSelectedFeatures(prev => prev.filter(f => f !== feature));
+    } else {
+      setSelectedFeatures(prev => [...prev, feature]);
+    }
+  };
+
+  const handleVisualize = (type: 'univariate' | 'bivariate' | 'multivariate') => {
+    setAnalysisType(type);
+    setModalOpen(true);
+  };
+
+  const handleVisualizationTypeChange = (event: SelectChangeEvent) => {
+    setVisualizationType(event.target.value as string);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setSelectedFeatures([]);
+    setVisualizationType('');
+  };
 
   return (
     <Container maxWidth="lg" className="tw-h-full tw-flex tw-flex-col tw-py-8 tw-bg-white">
-      {/* Header Section */}
       <MainHeader />
 
       {/* Page Title */}
@@ -86,16 +122,16 @@ const EDA: React.FC = () => {
             <AccordionDetails>
               <Typography variant="body1" className="tw-text-gray-700">
                 Explore live data visualizations including trends, patterns, and outliers for each feature.
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}
-                >
-                  Visualize
-                </Button>
               </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ fontWeight: 'bold', px: 3, mt: 2 }}
+                onClick={() => handleVisualize('univariate')}
+                disabled={selectedFeatures.length !== 1}
+              >
+                Visualize
+              </Button>
             </AccordionDetails>
           </Accordion>
 
@@ -106,16 +142,16 @@ const EDA: React.FC = () => {
             <AccordionDetails>
               <Typography variant="body1" className="tw-text-gray-700">
                 Select two features to visualize the relationship between them.
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}
-                >
-                  Visualize
-                </Button>
               </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ fontWeight: 'bold', px: 3, mt: 2 }}
+                onClick={() => handleVisualize('bivariate')}
+                disabled={selectedFeatures.length !== 2}
+              >
+                Visualize
+              </Button>
             </AccordionDetails>
           </Accordion>
 
@@ -126,32 +162,74 @@ const EDA: React.FC = () => {
             <AccordionDetails>
               <Typography variant="body1" className="tw-text-gray-700">
                 Visualize the relationship between multiple features at once.
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{ fontWeight: 'bold', ml: 'auto', px: 3 }}
-                >
-                  Visualize
-                </Button>
               </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ fontWeight: 'bold', px: 3, mt: 2 }}
+                onClick={() => handleVisualize('multivariate')}
+                disabled={selectedFeatures.length < 3}
+              >
+                Visualize
+              </Button>
             </AccordionDetails>
           </Accordion>
         </Grid>
 
-        {/* Right Column - Placeholder for Visualization Cards */}
+        {/* Right Column - Visualization Preview */}
         <Grid item xs={12} md={7}>
           <Box>
             <Typography variant="h5" className="tw-font-semibold tw-mb-4">
-              Visualization Preview
+              Visualization Features
             </Typography>
-            <Typography variant="body1" className="tw-text-gray-700">
-              Select a feature or combination of features to start exploring visualizations.
-            </Typography>
+            <Box>
+              {features.map((feature, index) => (
+                <Button
+                  key={index}
+                  variant={selectedFeatures.includes(feature) ? 'contained' : 'outlined'}
+                  color="primary"
+                  sx={{ m: 1 }}
+                  onClick={() => handleFeatureSelect(feature)}
+                >
+                  {feature}
+                </Button>
+              ))}
+            </Box>
           </Box>
         </Grid>
       </Grid>
+
+      {/* Modal for Visualization Type Selection */}
+      <Modal open={modalOpen} onClose={handleModalClose}>
+        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', mt: 10, borderRadius: 2, width: 400 }}>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>Choose Visualization Type</Typography>
+          <Select
+            value={visualizationType}
+            onChange={handleVisualizationTypeChange}
+            fullWidth
+            sx={{ mb: 2 }}
+          >
+            {visualizationTypes.map((type, index) => (
+              <MenuItem key={index} value={type}>
+                {type}
+              </MenuItem>
+            ))}
+          </Select>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              console.log(`Selected Features: ${selectedFeatures}`);
+              console.log(`Visualization Type: ${visualizationType}`);
+              handleModalClose();
+            }}
+            disabled={!visualizationType}
+            fullWidth
+          >
+            Submit
+          </Button>
+        </Box>
+      </Modal>
     </Container>
   );
 };
