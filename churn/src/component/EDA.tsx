@@ -22,7 +22,7 @@ const EDA: React.FC = () => {
       trend: 'up',
     },
     {
-      title: 'Total Groups',
+      title: 'Total Signups',
       value: '20',
       change: '-0.2%',
       trend: 'down',
