@@ -180,7 +180,7 @@ const EDA: React.FC = () => {
         <Grid item xs={12} md={7}>
           <Box>
             <Typography variant="h5" className="tw-font-semibold tw-mb-4">
-              Visualization Features
+              Visualization Preview
             </Typography>
             <Box>
               {features.map((feature, index) => (
