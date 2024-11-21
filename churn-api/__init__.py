@@ -31,4 +31,8 @@ def create_app():
     from visualizations.routes import visualizations_bp
     app.register_blueprint(visualizations_bp, url_prefix='/api')
 
+    # Register prediction blueprint
+    from prediction.routes import prediction_bp
+    app.register_blueprint(prediction_bp, url_prefix='/api')
+
     return app
