@@ -45,10 +45,38 @@ const PredictionPage: React.FC = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('Submitting Prediction Request:', formData);
-    // You can call the API endpoint here
+  
+    // API endpoint
+    const apiURL = 'http://127.0.0.1:5000/api/predict';
+  
+    try {
+      // Send POST request to the Flask API
+      const response = await fetch(apiURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch prediction');
+      }
+  
+      const data = await response.json();
+      console.log('Prediction Response:', data);
+  
+      // Display the prediction result
+      const resultMessage = data.prediction === 1 ? 'Churn' : 'No Churn';
+      alert(`Churn Prediction: ${resultMessage}`);
+    } catch (error) {
+      console.error('Error submitting prediction:', error);
+      alert('An error occurred while predicting churn. Please try again.');
+    }
   };
+  
 
   return (
     <Container maxWidth="lg" className="tw-h-full tw-flex tw-flex-col tw-py-8 tw-bg-white">
