@@ -1,12 +1,19 @@
 from flask import Blueprint, request, jsonify
+import os
 import joblib
 import numpy as np
 
 # Define the blueprint
 prediction_bp = Blueprint('prediction', __name__)
 
-# Load the CatBoost model (ensure the path is correct)
-model_path = '/home/muideen/Desktop/Churn-Machine-Learning-Deployment/churn-api/models/catboost_info/cat_boost_model.pkl'
+# Dynamically construct the model path relative to the project directory
+current_dir = os.path.dirname(os.path.abspath(__file__))  # Get the directory of routes.py
+model_path = os.path.join(current_dir, '..', 'models', 'cat_boost_model.pkl')  # Go up one level, then into models/
+
+# Debug: Print the resolved model path to confirm correctness
+print(f"Resolved model path: {model_path}")
+
+# Load the model
 model = joblib.load(model_path)
 
 @prediction_bp.route('/predict', methods=['POST'])
