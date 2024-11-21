@@ -6,7 +6,7 @@ import numpy as np
 prediction_bp = Blueprint('prediction', __name__)
 
 # Load the CatBoost model (ensure the path is correct)
-model_path = 'models/catboost_info/cat_boost_model.pkl'
+model_path = '/home/muideen/Desktop/Churn-Machine-Learning-Deployment/churn-api/models/catboost_info/cat_boost_model.pkl'
 model = joblib.load(model_path)
 
 @prediction_bp.route('/predict', methods=['POST'])
