@@ -1,18 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Typography, Container, Grid } from '@mui/material';
 import Header from './Header';
 import Sponsor from './Sponsor';
-import { Link } from 'react-router-dom';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 const LandingPage: React.FC = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(true);
+
+  // Functions to control the modal
+  const handleOpenSignIn = () => {
+    setIsSignIn(true);
+    setModalOpen(true);
+  };
+
+  const handleOpenSignUp = () => {
+    setIsSignIn(false);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Container maxWidth="lg" className="tw-h-screen tw-bg-white tw-flex tw-flex-col">
       {/* Header Section */}
-      <Header />
+      <Header
+        onOpenSignIn={handleOpenSignIn}
+        onOpenSignUp={handleOpenSignUp}
+      />
 
       {/* Main Content Section */}
       <Grid container spacing={4} alignItems="center" className="tw-flex-grow tw-py-16">
-        
         {/* Left Side - CTA Section */}
         <Grid item xs={12} md={6} marginTop={10}>
           <Box>
@@ -26,7 +47,7 @@ const LandingPage: React.FC = () => {
               variant="contained"
               color="primary"
               className="tw-bg-primary tw-text-white tw-font-semibold tw-px-8 tw-py-3"
-              component={Link} to='/home'
+              onClick={handleOpenSignIn} // Open SignIn modal when clicked
             >
               Get Started
             </Button>
@@ -39,14 +60,20 @@ const LandingPage: React.FC = () => {
             src="/src/assets/02.svg"
             alt="Churn Prediction Illustration"
             className="tw-max-w-full tw-h-auto"
-            style={{ maxWidth: '100%' }} // Set max width to 50% of its original size
+            style={{ maxWidth: '100%' }}
           />
         </Grid>
       </Grid>
 
       {/* Sponsor Section */}
       <Sponsor />
-      
+
+      {/* Conditionally render SignIn or SignUp modal */}
+      {modalOpen && isSignIn ? (
+        <SignIn onClose={handleCloseModal} onSwitch={handleOpenSignUp} />
+      ) : modalOpen && !isSignIn ? (
+        <SignUp onClose={handleCloseModal} onSwitch={handleOpenSignIn} />
+      ) : null}
     </Container>
   );
 };
