@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Typography, Container, Grid } from '@mui/material';
 import Header from './Header';
 import Sponsor from './Sponsor';
+import { Link } from 'react-router-dom';
 
 const LandingPage: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const LandingPage: React.FC = () => {
               variant="contained"
               color="primary"
               className="tw-bg-primary tw-text-white tw-font-semibold tw-px-8 tw-py-3"
+              component={Link} to='/home'
             >
               Get Started
             </Button>

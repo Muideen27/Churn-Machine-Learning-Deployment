@@ -19,10 +19,15 @@ const theme = createTheme({
   },
 });
 
-// function to check if the user is authenticated
+// Function to check if the user is authenticated
 const isAuthenticated = () => {
   const token = localStorage.getItem('access_token');
-  return !!token;
+  return !!token; // Returns true if token exists
+};
+
+// Component for protected routes
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return isAuthenticated() ? <>{children}</> : <Navigate to="/" />;
 };
 
 const App: React.FC = () => {
@@ -31,21 +36,42 @@ const App: React.FC = () => {
       <CssBaseline />
       <Router>
         <Routes>
-          {/* Route for LandingPage */}
+          {/* Route for LandingPage (Public) */}
           <Route path="/" element={<LandingPage />} />
-          {/* Route for HomePage */}
+          
+          {/* Protected Routes */}
           <Route 
             path="/home" 
             element={
-              isAuthenticated() ? <HomePage /> : <Navigate to="/home" />
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
             }
-            />
-          {/* Route for Prediction Page */}
-          <Route path="/predict" element={<PredictionPage />} />
-          {/* Route for Machine Learning Model Analysis Page */}
-          <Route path='ml-analysis'element={<ModelAnalysis />} />
-          {/* Route for EDA Page */}
-          <Route path='eda'element={<EDA />} />
+          />
+          <Route 
+            path="/predict" 
+            element={
+              <ProtectedRoute>
+                <PredictionPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route 
+            path="/ml-analysis" 
+            element={
+              <ProtectedRoute>
+                <ModelAnalysis />
+              </ProtectedRoute>
+            }
+          />
+          <Route 
+            path="/eda" 
+            element={
+              <ProtectedRoute>
+                <EDA />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </ThemeProvider>
