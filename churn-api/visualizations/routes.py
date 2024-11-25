@@ -39,7 +39,7 @@ def univariate_analysis():
         return jsonify({"error": f"Error during univariate analysis: {str(e)}"}), 500
 
 # Bivariate Analysis
-@visualizations_bp.route('/api/bivariate', methods=['POST'])
+@visualizations_bp.route('/bivariate', methods=['POST'])
 def bivariate_analysis():
     data = request.json
     feature1 = data.get('feature1')
@@ -49,7 +49,11 @@ def bivariate_analysis():
         return jsonify({"message": "Both feature1 and feature2 are required"}), 400
 
     try:
-        query = text(f"SELECT {feature1}, {feature2} FROM customer_data")
+        # Log features being queried
+        current_app.logger.info(f"Querying features: {feature1}, {feature2}")
+
+        # Use quoted column names for safety
+        query = text(f'SELECT "{feature1}", "{feature2}" FROM customer_data')
         result = db.session.execute(query).fetchall()
 
         if not result:
@@ -60,10 +64,11 @@ def bivariate_analysis():
         return jsonify(df.to_dict(orient='list')), 200
 
     except Exception as e:
+        current_app.logger.error(f"Error during bivariate analysis: {str(e)}")
         return jsonify({"error": f"Error during bivariate analysis: {str(e)}"}), 500
 
 # Multivariate Analysis
-@visualizations_bp.route('/api/multivariate', methods=['POST'])
+@visualizations_bp.route('/multivariate', methods=['POST'])
 def multivariate_analysis():
     data = request.json
     feature_names = data.get('feature_names')
@@ -72,7 +77,14 @@ def multivariate_analysis():
         return jsonify({"message": "A list of feature names is required"}), 400
 
     try:
-        selected_features = ", ".join(feature_names)
+        # Quote each feature name to handle case sensitivity and reserved keywords
+        quoted_features = [f'"{feature}"' for feature in feature_names]
+        selected_features = ", ".join(quoted_features)
+
+        # Log the features being queried
+        current_app.logger.info(f"Querying features: {', '.join(feature_names)}")
+
+        # Query the database
         query = text(f"SELECT {selected_features} FROM customer_data")
         result = db.session.execute(query).fetchall()
 
@@ -84,4 +96,6 @@ def multivariate_analysis():
         return jsonify(df.to_dict(orient='records')), 200
 
     except Exception as e:
+        current_app.logger.error(f"Error during multivariate analysis: {str(e)}")
         return jsonify({"error": f"Error during multivariate analysis: {str(e)}"}), 500
+
