@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography, Container, Divider, Button } from '@mui/material';
 import MainHeader from './MainHeader';
+import { Link } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
   return (
@@ -73,7 +74,7 @@ const HomePage: React.FC = () => {
 
       {/* Call to Action */}
       <Box className="tw-text-center tw-mt-12">
-        <Button variant="contained" color="primary" className="tw-bg-primary tw-text-white tw-font-semibold tw-px-8 tw-py-3">
+        <Button variant="contained" color="primary" className="tw-bg-primary tw-text-white tw-font-semibold tw-px-8 tw-py-3" component={Link} to="/predict">
           Explore the Model
         </Button>
       </Box>
