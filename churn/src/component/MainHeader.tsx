@@ -45,19 +45,19 @@ const Header: React.FC = () => {
 
             {/* Center Navigation Buttons */}
             <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }} onClick={() => navigate('/home')} >
                 About
               </Button>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }} onClick={() => navigate('/predict')} >
                 Predict
               </Button>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }} onClick={() => navigate('/eda')} >
                 EDA
               </Button>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }} onClick={() => navigate('/ml-analysis')} >
                 ML Models Analysis
               </Button>
-              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }}>
+              <Button color="inherit" sx={{ fontWeight: 'medium', mx: 1 }} onClick={() => navigate('/team')} >
                 Team
               </Button>
             </Box>
