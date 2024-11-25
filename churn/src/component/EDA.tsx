@@ -43,6 +43,7 @@ const EDA: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [analysisType, setAnalysisType] = useState<'univariate' | 'bivariate' | 'multivariate' | null>(null);
 
+  //  Function to handle feature selection
   const handleFeatureSelect = (feature: string) => {
     if (selectedFeatures.includes(feature)) {
       setSelectedFeatures(prev => prev.filter(f => f !== feature));
@@ -67,41 +68,6 @@ const EDA: React.FC = () => {
   };
 
 // Handle the visualization type selection
-
-<Modal open={modalOpen} onClose={handleModalClose}>
-  <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', mt: 10, borderRadius: 2, width: 400 }}>
-    <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-      {analysisType ? `Performing ${analysisType} Analysis` : 'Choose Visualization Type'}
-    </Typography>
-    <Select
-      value={visualizationType}
-      onChange={handleVisualizationTypeChange}
-      fullWidth
-      sx={{ mb: 2 }}
-    >
-      {visualizationTypes.map((type, index) => (
-        <MenuItem key={index} value={type}>
-          {type}
-        </MenuItem>
-      ))}
-    </Select>
-    <Button
-      variant="contained"
-      color="secondary"
-      onClick={() => {
-        console.log(`Analysis Type: ${analysisType}`);
-        console.log(`Selected Features: ${selectedFeatures}`);
-        console.log(`Visualization Type: ${visualizationType}`);
-        handleModalClose();
-      }}
-      disabled={!visualizationType}
-      fullWidth
-    >
-      Submit
-    </Button>
-  </Box>
-</Modal>
-
 
   return (
     <Container maxWidth="lg" className="tw-h-full tw-flex tw-flex-col tw-py-8 tw-bg-white">
@@ -239,7 +205,9 @@ const EDA: React.FC = () => {
       {/* Modal for Visualization Type Selection */}
       <Modal open={modalOpen} onClose={handleModalClose}>
         <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', mt: 10, borderRadius: 2, width: 400 }}>
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>Choose Visualization Type</Typography>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+            {analysisType ? `Performing ${analysisType} Analysis` : 'Choose Visualization Type'}
+          </Typography>
           <Select
             value={visualizationType}
             onChange={handleVisualizationTypeChange}
@@ -256,6 +224,7 @@ const EDA: React.FC = () => {
             variant="contained"
             color="secondary"
             onClick={() => {
+              console.log(`Analysis Type: ${analysisType}`);
               console.log(`Selected Features: ${selectedFeatures}`);
               console.log(`Visualization Type: ${visualizationType}`);
               handleModalClose();
