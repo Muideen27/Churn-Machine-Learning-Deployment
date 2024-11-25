@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app
 from sqlalchemy import text
-from models import db
+from __init__ import db
 import pandas as pd
 
 visualizations_bp = Blueprint('visualizations', __name__)
@@ -37,7 +37,6 @@ def univariate_analysis():
         # Log the error
         current_app.logger.error(f"Error during univariate analysis: {str(e)}")
         return jsonify({"error": f"Error during univariate analysis: {str(e)}"}), 500
-
 
 # Bivariate Analysis
 @visualizations_bp.route('/api/bivariate', methods=['POST'])
