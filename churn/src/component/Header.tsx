@@ -57,8 +57,8 @@ const Header: React.FC<HeaderProps> = ({ onOpenSignIn, onOpenSignUp }) => {
               </Button>
               <Button
                 variant="outlined"
-                color="secondary"
-                sx={{ fontWeight: 'bold', px: 3 }}
+                color="secondary" 
+                sx={{ fontWeight: 'bold', px: 3, color: "#fff", borderColor: "#fff" }}
                 onClick={onOpenSignUp}
               >
                 Sign Up
