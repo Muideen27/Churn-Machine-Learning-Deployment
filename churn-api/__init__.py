@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from sqlalchemy.sql import text  # Import for raw SQL queries
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -22,6 +23,14 @@ def create_app():
     bcrypt.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
+
+    # Test database connection
+    with app.app_context():
+        try:
+            result = db.session.execute(text("SELECT 1")).fetchone()
+            print(f"Database connection successful: {result}")
+        except Exception as e:
+            print(f"Database connection failed: {e}")
 
     # Register authentication blueprint
     from auth.routes import auth_bp
