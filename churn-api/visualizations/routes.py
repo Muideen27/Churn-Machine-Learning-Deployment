@@ -19,7 +19,7 @@ def univariate_analysis():
         current_app.logger.info(f"Querying feature: {feature_name}")
 
         # Use quoted column names to handle case sensitivity
-        query = text(f"SELECT \"{feature_name}\" FROM customer_data")
+        query = text(f"SELECT \"{feature_name}\" FROM customer_data LIMIT 100")
         current_app.logger.info(f"Executing query: SELECT \"{feature_name}\" FROM customer_data")
 
         # Execute the query
@@ -52,11 +52,15 @@ def bivariate_analysis():
         # Log features being queried
         current_app.logger.info(f"Querying features: {feature1}, {feature2}")
 
-        # Use quoted column names for safety
-        query = text(f'SELECT "{feature1}", "{feature2}" FROM customer_data')
+        # Use quoted column names for safety and limit results to 100 rows
+        query = text(f'SELECT "{feature1}", "{feature2}" FROM customer_data LIMIT 100')
+        current_app.logger.info(f"Executing query: SELECT \"{feature1}\", \"{feature2}\" FROM customer_data LIMIT 100")
+
+        # Execute the query
         result = db.session.execute(query).fetchall()
 
         if not result:
+            current_app.logger.warning(f"No data found for features: {feature1}, {feature2}")
             return jsonify({"message": f"No data found for features: {feature1}, {feature2}"}), 404
 
         # Convert result to JSON (list of paired values)
@@ -85,7 +89,7 @@ def multivariate_analysis():
         current_app.logger.info(f"Querying features: {', '.join(feature_names)}")
 
         # Query the database
-        query = text(f"SELECT {selected_features} FROM customer_data")
+        query = text(f"SELECT {selected_features} FROM customer_data LIMIT 100")
         result = db.session.execute(query).fetchall()
 
         if not result:
