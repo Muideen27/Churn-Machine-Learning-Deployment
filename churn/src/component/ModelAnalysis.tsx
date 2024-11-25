@@ -4,17 +4,7 @@ import MainHeader from './MainHeader';
 
 const ModelAnalysis: React.FC = () => {
   return (
-    <Container
-      maxWidth="lg"
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        py: 8,
-        bgcolor: 'white',
-      }}
-    >
-      {/* Header Section */}
+    <Container maxWidth="lg" className="tw-h-full tw-flex tw-flex-col tw-py-8 tw-bg-white">
       <MainHeader />
 
       {/* Page Title */}
