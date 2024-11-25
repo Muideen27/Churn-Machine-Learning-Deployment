@@ -56,17 +56,26 @@ const HomePage: React.FC = () => {
         <Typography variant="h5" className="tw-font-semibold tw-text-gray-800 tw-mb-2">
           Data Description
         </Typography>
-        <Box className="tw-grid tw-grid-cols-2 tw-gap-4 tw-text-gray-700">
-          <Typography variant="body2"><strong>Acct_ID:</strong> Unique identifier for each customer account.</Typography>
-          <Typography variant="body2"><strong>YEARS_WITH_BANK:</strong> Number of years a customer has been with the bank.</Typography>
-          <Typography variant="body2"><strong>CHURN:</strong> Binary indicator of customer churn.</Typography>
-          <Typography variant="body2"><strong>RISK_RATING:</strong> Customer financial risk rating.</Typography>
-          <Typography variant="body2"><strong>CURRENCY:</strong> Account currency type.</Typography>
-          <Typography variant="body2"><strong>AVE BAL:</strong> Average balance in the account.</Typography>
-          <Typography variant="body2"><strong>MOBILE_APP_ADOPTION:</strong> Mobile app usage indicator.</Typography>
-          <Typography variant="body2"><strong>INTERNET_BANKING_ADOPTION:</strong> Internet banking usage indicator.</Typography>
-          <Typography variant="body2"><strong>LAST_12_MONTHS_CREDIT_VOLUME:</strong> Total credit transactions over the last year.</Typography>
-          <Typography variant="body2"><strong>LAST_12_MONTHS_DEBIT_VOLUME:</strong> Total debit transactions over the last year.</Typography>
+          <Box className="tw-grid tw-grid-cols-2 tw-gap-4 tw-text-gray-700">
+          <Typography variant="body2"><strong>Acct_ID:</strong> A unique identifier for each customer account.</Typography>
+          <Typography variant="body2"><strong>YEARS_WITH_BANK:</strong> The number of years a customer has been with the bank.</Typography>
+          <Typography variant="body2"><strong>CHURN:</strong> A binary indicator of whether the customer has churned (e.g., 0 for not churned, 1 for churned).</Typography>
+          <Typography variant="body2"><strong>RISK_RATING:</strong> A rating or score that reflects the financial risk associated with the customer.</Typography>
+          <Typography variant="body2"><strong>CURRENCY:</strong> The currency used in the customer’s account (e.g., NGN, USD, EUR).</Typography>
+          <Typography variant="body2"><strong>AVE BAL:</strong> The average balance in the customer’s account over a specified period.</Typography>
+          <Typography variant="body2"><strong>SCHEME_TYPE:</strong> The type of banking scheme or product the customer is using. Y = Yes; N = No.</Typography>
+          <Typography variant="body2"><strong>MOBILE_APP_ADOPTION:</strong> Indicates whether the customer uses the bank’s mobile app. Y = Yes; N = No.</Typography>
+          <Typography variant="body2"><strong>INTERNET_BANKING_ADOPTION:</strong> Indicates whether the customer uses internet banking. Y = Yes; N = No.</Typography>
+          <Typography variant="body2"><strong>USSD_BANKING_ADOPTION:</strong> Indicates whether the customer uses USSD banking services. Y = Yes; N = No.</Typography>
+          <Typography variant="body2"><strong>DIGITAL_LOAN:</strong> Indicates whether the customer has taken a digital loan. Y = Yes; N = No.</Typography>
+          <Typography variant="body2"><strong>UNSECURED_LOAN:</strong> Indicates whether the customer has an unsecured loan. Y = Yes; N = No.</Typography>
+          <Typography variant="body2"><strong>TERMLOAN_STATUS:</strong> Status of the customer’s term loan. Y = Yes; N = No.</Typography>
+          <Typography variant="body2"><strong>CREDIT_CARD:</strong> Indicates whether the customer holds a credit card with the bank. Y = Yes; N = No.</Typography>
+          <Typography variant="body2"><strong>SUBSEGMENT:</strong> A total volume of credit transactions over the last 12 months.</Typography>
+          <Typography variant="body2"><strong>LAST_12_MONTHS_CREDIT_VOLUME:</strong> Total volume of credit transactions over the last 12 months.</Typography>
+          <Typography variant="body2"><strong>LAST_12_MONTHS_DEBIT_VOLUME:</strong> Total volume of debit transactions over the last 12 months.</Typography>
+          <Typography variant="body2"><strong>LAST_12_MONTHS_DEBIT_VALUE:</strong> Total value of debit transactions over the last 12 months.</Typography>
+          <Typography variant="body2"><strong>LAST_12_MONTHS_CREDIT_VALUE:</strong> Total value of credit transactions over the last 12 months.</Typography>
         </Box>
       </Box>
 
