@@ -8,3 +8,6 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.email}>"
+
+
+# psql postgresql://churn_v1g3_user:1CwnghVEArDqyNyu6q4gkuzQfmq5A0XZ@dpg-csngl9hu0jms738q5cjg-a.oregon-postgres.render.com:5432/churn_v1g3

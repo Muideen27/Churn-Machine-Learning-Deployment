@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from sqlalchemy import text
 from models import db
 import pandas as pd
@@ -6,7 +6,7 @@ import pandas as pd
 visualizations_bp = Blueprint('visualizations', __name__)
 
 # Univariate Analysis
-@visualizations_bp.route('/api/univariate', methods=['POST'])
+@visualizations_bp.route('/univariate', methods=['POST'])
 def univariate_analysis():
     data = request.json
     feature_name = data.get('feature_name')
@@ -15,11 +15,18 @@ def univariate_analysis():
         return jsonify({"message": "Feature name is required"}), 400
 
     try:
-        # Query the feature from the database
-        query = text(f"SELECT {feature_name} FROM customer_data")
+        # Log the feature being queried
+        current_app.logger.info(f"Querying feature: {feature_name}")
+
+        # Use quoted column names to handle case sensitivity
+        query = text(f"SELECT \"{feature_name}\" FROM customer_data")
+        current_app.logger.info(f"Executing query: SELECT \"{feature_name}\" FROM customer_data")
+
+        # Execute the query
         result = db.session.execute(query).fetchall()
 
         if not result:
+            current_app.logger.warning(f"No data found for feature: {feature_name}")
             return jsonify({"message": f"No data found for feature: {feature_name}"}), 404
 
         # Convert result to JSON (flattened list for Chart.js compatibility)
@@ -27,7 +34,10 @@ def univariate_analysis():
         return jsonify(df[feature_name].tolist()), 200
 
     except Exception as e:
+        # Log the error
+        current_app.logger.error(f"Error during univariate analysis: {str(e)}")
         return jsonify({"error": f"Error during univariate analysis: {str(e)}"}), 500
+
 
 # Bivariate Analysis
 @visualizations_bp.route('/api/bivariate', methods=['POST'])

@@ -66,6 +66,8 @@ const EDA: React.FC = () => {
     setVisualizationType('');
   };
 
+// Handle the visualization type selection
+
 <Modal open={modalOpen} onClose={handleModalClose}>
   <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', mt: 10, borderRadius: 2, width: 400 }}>
     <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
