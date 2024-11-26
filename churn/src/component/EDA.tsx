@@ -5,6 +5,7 @@ import MainHeader from './MainHeader';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { fetchUnivariateData, fetchBivariateData, fetchMultivariateData } from '../api/dataApi';
+import Visualization from './Visualization';
 
 const features = [
   'Acct_ID', 'YEARS_WITH_BANK', 'CHURN', 'RISK_RATING', 'CURRENCY',
@@ -44,8 +45,9 @@ const EDA: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [analysisType, setAnalysisType] = useState<'univariate' | 'bivariate' | 'multivariate' | null>(null);
   const [visualizationData, setVisualizationData] = useState<any>(null);
+  const [visualizationModalOpen, setVisualizationModalOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [__error, setError] = useState<string | null>(null);
   
 
   //  Function to handle feature selection
@@ -72,6 +74,9 @@ const EDA: React.FC = () => {
     setVisualizationType('');
   };
 
+  const handleVisualizationModalClose = () => {
+    setVisualizationModalOpen(false);
+  };
 
 // Function to fetch data based on selected features and analysis type
 
@@ -94,6 +99,7 @@ const fetchVisualizationData = async () => {
 
       console.log('Fetched data:', data); // Log data to check its structure
       setVisualizationData(data); // Pass data to state
+      setVisualizationModalOpen(true); // Open the visualization modal
       setModalOpen(false);
   } catch (err) {
       console.error('Error during fetchVisualizationData:', err);
@@ -265,7 +271,7 @@ const fetchVisualizationData = async () => {
               console.log(`Analysis Type: ${analysisType}`);
               console.log(`Selected Features: ${selectedFeatures}`);
               console.log(`Visualization Type: ${visualizationType}`);
-              handleModalClose();
+              // handleModalClose();
               fetchVisualizationData();
             }}
             disabled={!visualizationType || loading}
@@ -277,13 +283,29 @@ const fetchVisualizationData = async () => {
         </Box>
       </Modal>
       
-      {/* Display visualization data */}
-      {visualizationData && (
-    <Box>
-        <Typography variant="h6">Fetched Data:</Typography>
-        <pre>{JSON.stringify(visualizationData, null, 2)}</pre>
-    </Box>
-)}
+       {/* Visualization Modal */}
+      <Modal open={visualizationModalOpen} onClose={handleVisualizationModalClose}>
+        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', mt: 10, borderRadius: 2, width: '80%', height: '80%' }}>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+            Visualization
+          </Typography>
+          {visualizationData ? (
+            <>
+              {console.log("Visualization Data in Modal:", visualizationData)}
+              <Visualization
+                visualizationType={visualizationType}
+                data={visualizationData}
+                selectedFeatures={selectedFeatures}
+              />
+            </>
+          ) : (
+            <Typography>No data available for visualization.</Typography>
+          )}
+          <Button variant="contained" color="secondary" onClick={handleVisualizationModalClose} sx={{ mt: 4 }}>
+            Close
+          </Button>
+        </Box>
+      </Modal>
 
     </Container>
   );
