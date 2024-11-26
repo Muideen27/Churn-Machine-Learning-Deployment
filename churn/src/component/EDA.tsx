@@ -267,11 +267,13 @@ const EDA: React.FC = () => {
               console.log(`Selected Features: ${selectedFeatures}`);
               console.log(`Visualization Type: ${visualizationType}`);
               handleModalClose();
+              fetchVisualizationData();
             }}
-            disabled={!visualizationType}
+            disabled={!visualizationType || loading}
             fullWidth
           >
             Submit
+            {loading ? 'loading...' : 'Submit'}
           </Button>
         </Box>
       </Modal>
