@@ -43,8 +43,10 @@ const EDA: React.FC = () => {
   const [visualizationType, setVisualizationType] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [analysisType, setAnalysisType] = useState<'univariate' | 'bivariate' | 'multivariate' | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [visualizationData, setVisualizationData] = useState(null);
+  const [visualizationData, setVisualizationData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  
 
   //  Function to handle feature selection
   const handleFeatureSelect = (feature: string) => {
@@ -71,32 +73,39 @@ const EDA: React.FC = () => {
   };
 
 
-// Handle submit validation
+// Function to fetch data based on selected features and analysis type
 
-const handleSubmitVisualization = async () => {
-  setLoading(true);
-  setVisualizationData(null);
+  const fetchVisualizationData = async () => {
+    setLoading(true);
+    setError(null);
 
-  try {
-      let data;
-      if (analysisType === 'univariate' && selectedFeatures.length === 1) {
-          data = await fetchUnivariateData(selectedFeatures[0]);
-      } else if (analysisType === 'bivariate' && selectedFeatures.length === 2) {
-          data = await fetchBivariateData(selectedFeatures[0], selectedFeatures[1]);
-      } else if (analysisType === 'multivariate' && selectedFeatures.length >= 3) {
-          data = await fetchMultivariateData(selectedFeatures);
-      } else {
-          console.error('Invalid analysis type or feature selection.');
-          return;
-      }
+    try {
+        let data;
 
-      setVisualizationData(data);
-  } catch (error) {
-      console.error('Error fetching visualization data:', error);
-  } finally {
-      setLoading(false);
-  }
-};
+        if (analysisType === 'univariate' && selectedFeatures.length === 1) {
+            data = await fetchUnivariateData(selectedFeatures[0]);
+        } else if (analysisType === 'bivariate' && selectedFeatures.length === 2) {
+            data = await fetchBivariateData(selectedFeatures[0], selectedFeatures[1]);
+        } else if (analysisType === 'multivariate' && selectedFeatures.length >= 3) {
+            data = await fetchMultivariateData(selectedFeatures);
+        } else {
+            throw new Error('Invalid feature selection or analysis type.');
+        }
+
+        if (data) {
+            setVisualizationData(data);
+            setModalOpen(false);
+        } else {
+            throw new Error('No data returned from API.');
+        }
+    } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error occurred.');
+    } finally {
+        setLoading(false);
+    }
+  };
+
+
 // Handle the visualization type selection
 
   return (
