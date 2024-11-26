@@ -75,35 +75,34 @@ const EDA: React.FC = () => {
 
 // Function to fetch data based on selected features and analysis type
 
-  const fetchVisualizationData = async () => {
-    setLoading(true);
-    setError(null);
+const fetchVisualizationData = async () => {
+  setLoading(true);
+  setError(null);
 
-    try {
-        let data;
+  try {
+      let data;
 
-        if (analysisType === 'univariate' && selectedFeatures.length === 1) {
-            data = await fetchUnivariateData(selectedFeatures[0]);
-        } else if (analysisType === 'bivariate' && selectedFeatures.length === 2) {
-            data = await fetchBivariateData(selectedFeatures[0], selectedFeatures[1]);
-        } else if (analysisType === 'multivariate' && selectedFeatures.length >= 3) {
-            data = await fetchMultivariateData(selectedFeatures);
-        } else {
-            throw new Error('Invalid feature selection or analysis type.');
-        }
+      if (analysisType === 'univariate' && selectedFeatures.length === 1) {
+          data = await fetchUnivariateData(selectedFeatures[0]);
+      } else if (analysisType === 'bivariate' && selectedFeatures.length === 2) {
+          data = await fetchBivariateData(selectedFeatures[0], selectedFeatures[1]);
+      } else if (analysisType === 'multivariate' && selectedFeatures.length >= 3) {
+          data = await fetchMultivariateData(selectedFeatures);
+      } else {
+          throw new Error('Invalid feature selection or analysis type.');
+      }
 
-        if (data) {
-            setVisualizationData(data);
-            setModalOpen(false);
-        } else {
-            throw new Error('No data returned from API.');
-        }
-    } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error occurred.');
-    } finally {
-        setLoading(false);
-    }
-  };
+      console.log('Fetched data:', data); // Log data to check its structure
+      setVisualizationData(data); // Pass data to state
+      setModalOpen(false);
+  } catch (err) {
+      console.error('Error during fetchVisualizationData:', err);
+      setError(err instanceof Error ? err.message : 'Unknown error occurred.');
+  } finally {
+      setLoading(false);
+  }
+};
+
 
 
 // Handle the visualization type selection
@@ -277,6 +276,15 @@ const EDA: React.FC = () => {
           </Button>
         </Box>
       </Modal>
+      
+      {/* Display visualization data */}
+      {visualizationData && (
+    <Box>
+        <Typography variant="h6">Fetched Data:</Typography>
+        <pre>{JSON.stringify(visualizationData, null, 2)}</pre>
+    </Box>
+)}
+
     </Container>
   );
 };

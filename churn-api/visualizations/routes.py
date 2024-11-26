@@ -15,23 +15,27 @@ def univariate_analysis():
         return jsonify({"message": "Feature name is required"}), 400
 
     try:
+
+        # Normalize column name to lowercase for case-insensitive matching
+        normalized_feature_name = feature_name.lower()
+
         # Log the feature being queried
-        current_app.logger.info(f"Querying feature: {feature_name}")
+        current_app.logger.info(f"Querying feature: {normalized_feature_name}")
 
         # Use quoted column names to handle case sensitivity
-        query = text(f"SELECT \"{feature_name}\" FROM customer_data LIMIT 100")
-        current_app.logger.info(f"Executing query: SELECT \"{feature_name}\" FROM customer_data")
+        query = text(f"SELECT \"{normalized_feature_name}\" FROM customer_data LIMIT 100")
+        current_app.logger.info(f"Executing query: SELECT \"{normalized_feature_name}\" FROM customer_data")
 
         # Execute the query
         result = db.session.execute(query).fetchall()
 
         if not result:
-            current_app.logger.warning(f"No data found for feature: {feature_name}")
-            return jsonify({"message": f"No data found for feature: {feature_name}"}), 404
+            current_app.logger.warning(f"No data found for feature: {normalized_feature_name}")
+            return jsonify({"message": f"No data found for feature: {normalized_feature_name}"}), 404
 
         # Convert result to JSON (flattened list for Chart.js compatibility)
-        df = pd.DataFrame(result, columns=[feature_name])
-        return jsonify(df[feature_name].tolist()), 200
+        df = pd.DataFrame(result, columns=[normalized_feature_name])
+        return jsonify(df[normalized_feature_name].tolist()), 200
 
     except Exception as e:
         # Log the error
