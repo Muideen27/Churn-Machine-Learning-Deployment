@@ -53,22 +53,26 @@ def bivariate_analysis():
         return jsonify({"message": "Both feature1 and feature2 are required"}), 400
 
     try:
+        # Normalize column names to lowercase for case-insensitive matching
+        normalized_feature1 = feature1.lower()
+        normalized_feature2 = feature2.lower()
+
         # Log features being queried
-        current_app.logger.info(f"Querying features: {feature1}, {feature2}")
+        current_app.logger.info(f"Querying features: {normalized_feature1}, {normalized_feature2}")
 
         # Use quoted column names for safety and limit results to 100 rows
-        query = text(f'SELECT "{feature1}", "{feature2}" FROM customer_data LIMIT 100')
-        current_app.logger.info(f"Executing query: SELECT \"{feature1}\", \"{feature2}\" FROM customer_data LIMIT 100")
+        query = text(f'SELECT "{normalized_feature1}", "{normalized_feature2}" FROM customer_data LIMIT 100')
+        current_app.logger.info(f"Executing query: SELECT \"{normalized_feature1}\", \"{normalized_feature2}\" FROM customer_data LIMIT 100")
 
         # Execute the query
         result = db.session.execute(query).fetchall()
 
         if not result:
-            current_app.logger.warning(f"No data found for features: {feature1}, {feature2}")
-            return jsonify({"message": f"No data found for features: {feature1}, {feature2}"}), 404
+            current_app.logger.warning(f"No data found for features: {normalized_feature1}, {normalized_feature2}")
+            return jsonify({"message": f"No data found for features: {normalized_feature1}, {normalized_feature2}"}), 404
 
         # Convert result to JSON (list of paired values)
-        df = pd.DataFrame(result, columns=[feature1, feature2])
+        df = pd.DataFrame(result, columns=[normalized_feature1, normalized_feature2])
         return jsonify(df.to_dict(orient='list')), 200
 
     except Exception as e:
@@ -85,25 +89,26 @@ def multivariate_analysis():
         return jsonify({"message": "A list of feature names is required"}), 400
 
     try:
-        # Quote each feature name to handle case sensitivity and reserved keywords
-        quoted_features = [f'"{feature}"' for feature in feature_names]
+        # Normalize each feature name to lowercase for case-insensitive matching
+        normalized_features = [feature.lower() for feature in feature_names]
+        quoted_features = [f'"{feature}"' for feature in normalized_features]
         selected_features = ", ".join(quoted_features)
 
         # Log the features being queried
-        current_app.logger.info(f"Querying features: {', '.join(feature_names)}")
+        current_app.logger.info(f"Querying features: {', '.join(normalized_features)}")
 
         # Query the database
         query = text(f"SELECT {selected_features} FROM customer_data LIMIT 100")
         result = db.session.execute(query).fetchall()
 
         if not result:
-            return jsonify({"message": f"No data found for features: {', '.join(feature_names)}"}), 404
+            current_app.logger.warning(f"No data found for features: {', '.join(normalized_features)}")
+            return jsonify({"message": f"No data found for features: {', '.join(normalized_features)}"}), 404
 
         # Convert result to JSON (list of dictionaries)
-        df = pd.DataFrame(result, columns=feature_names)
+        df = pd.DataFrame(result, columns=normalized_features)
         return jsonify(df.to_dict(orient='records')), 200
 
     except Exception as e:
         current_app.logger.error(f"Error during multivariate analysis: {str(e)}")
         return jsonify({"error": f"Error during multivariate analysis: {str(e)}"}), 500
-
