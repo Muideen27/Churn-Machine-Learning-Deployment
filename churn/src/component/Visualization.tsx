@@ -1,26 +1,36 @@
 import React from 'react';
 import { Bar, Scatter, Line, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from 'chart.js';
 
-// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
 interface VisualizationProps {
   visualizationType: string;
-  data: any;
+  data: any[];
   selectedFeatures: string[];
 }
 
 const Visualization: React.FC<VisualizationProps> = ({ visualizationType, data, selectedFeatures }) => {
-    console.log("Data passed to Visualization Component:", data);
-    console.log("Visualization Type passed to Visualization Component:", visualizationType);
+  console.log("Data passed to Visualization Component:", data);
+  console.log("Visualization Type passed to Visualization Component:", visualizationType);
+
   if (!data || !visualizationType) {
     return <div>No data or visualization type provided.</div>;
   }
 
-  // Prepare Chart.js data format dynamically
   let chartData;
-  let chartOptions = {
+  const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
   };
@@ -28,11 +38,11 @@ const Visualization: React.FC<VisualizationProps> = ({ visualizationType, data, 
   switch (visualizationType) {
     case 'Bar Chart':
       chartData = {
-        labels: data.map((_, index: number) => `Index ${index + 1}`), // Labels as Index
+        labels: data.map((_, index: number) => `Index ${index + 1}`),
         datasets: [
           {
             label: selectedFeatures[0],
-            data: data,
+            data: data.map((value: any) => parseFloat(value) || 0),
             backgroundColor: 'rgba(75, 192, 192, 0.6)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
@@ -58,11 +68,11 @@ const Visualization: React.FC<VisualizationProps> = ({ visualizationType, data, 
 
     case 'Line Graph':
       chartData = {
-        labels: data.map((_, index: number) => `Index ${index + 1}`), // Labels as Index
+        labels: data.map((_, index: number) => `Index ${index + 1}`),
         datasets: [
           {
             label: selectedFeatures[0],
-            data: data,
+            data: data.map((value: any) => parseFloat(value) || 0),
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
           },
@@ -72,11 +82,11 @@ const Visualization: React.FC<VisualizationProps> = ({ visualizationType, data, 
 
     case 'Pie Chart':
       chartData = {
-        labels: data.map((_, index: number) => `Category ${index + 1}`), // Example labels
+        labels: data.map((_, index: number) => `Category ${index + 1}`),
         datasets: [
           {
             label: selectedFeatures[0],
-            data: data,
+            data: data.map((value: any) => parseFloat(value) || 0),
             backgroundColor: [
               'rgba(255, 99, 132, 0.6)',
               'rgba(54, 162, 235, 0.6)',

@@ -23,7 +23,7 @@ def univariate_analysis():
         current_app.logger.info(f"Querying feature: {normalized_feature_name}")
 
         # Use quoted column names to handle case sensitivity
-        query = text(f"SELECT \"{normalized_feature_name}\" FROM customer_data LIMIT 100")
+        query = text(f"SELECT \"{normalized_feature_name}\" FROM customer_data LIMIT 200")
         current_app.logger.info(f"Executing query: SELECT \"{normalized_feature_name}\" FROM customer_data")
 
         # Execute the query
