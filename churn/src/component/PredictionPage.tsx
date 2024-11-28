@@ -127,7 +127,7 @@ const PredictionPage: React.FC = () => {
           Enter customer details to predict churn likelihood.
         </Typography>
       </Box>
-
+      <br />
       {/* Form */}
       <Grid container spacing={4}>
         <Grid item xs={12} sm={6}>
