@@ -16,7 +16,7 @@ def create_app():
     app.config.from_object('config.Config')
     
     # Enable CORS
-    CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+    CORS(app, resources={r"/*": {"origins": ["https://fintech-bank.onrender.com"]}})
 
     # Initialize extensions
     db.init_app(app)
