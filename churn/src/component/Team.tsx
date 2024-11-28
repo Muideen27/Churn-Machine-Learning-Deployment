@@ -60,28 +60,50 @@ const teamMembers = [
   },
 ];
 
-const TeamCard: React.FC<typeof teamMembers[0]> = ({ name, email, expertise, linkedin, cvLink, image, bio }) => (
-  <Card sx={{ boxShadow: 3, p: 2 }}>
-    <Box className="tw-flex tw-items-center">
+const TeamCard: React.FC<typeof teamMembers[0]> = ({
+  name,
+  email,
+  expertise,
+  linkedin,
+  cvLink,
+  image,
+  bio,
+}) => (
+  <Card sx={{ boxShadow: 3, padding: 2 }}>
+    {/* Profile Section */}
+    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
       <Avatar
         src={image}
         alt={name}
         sx={{ width: 80, height: 80, marginRight: 2 }}
       />
       <Box>
-        <Typography variant="h6" className="tw-font-bold">
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 'bold', color: 'primary.main' }}
+        >
           {name}
         </Typography>
-        <Typography variant="body2" className="tw-text-gray-600">
+        <Typography
+          variant="body2"
+          sx={{ color: 'text.secondary', fontSize: '0.9rem' }}
+        >
           {expertise}
         </Typography>
       </Box>
     </Box>
-    <Typography variant="body2" className="tw-my-2 tw-text-gray-700">
+
+    {/* Bio Section */}
+    <Typography
+      variant="body2"
+      sx={{ color: 'text.primary', marginBottom: 2 }}
+    >
       {bio}
     </Typography>
-    <Divider sx={{ my: 2 }} />
-    <Box className="tw-flex tw-flex-col tw-gap-2">
+    <Divider sx={{ marginY: 2 }} />
+
+    {/* Buttons Section */}
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
       <Button
         variant="contained"
         color="primary"
@@ -89,7 +111,7 @@ const TeamCard: React.FC<typeof teamMembers[0]> = ({ name, email, expertise, lin
         href={linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        sx={{ textTransform: 'none', marginRight: '25px' }}
+        sx={{ textTransform: 'none', boxShadow: 2 }}
       >
         LinkedIn
       </Button>
@@ -99,7 +121,7 @@ const TeamCard: React.FC<typeof teamMembers[0]> = ({ name, email, expertise, lin
         href={cvLink}
         target="_blank"
         rel="noopener noreferrer"
-        sx={{ marginLeft: '25px'}}
+        sx={{ textTransform: 'none' }}
       >
         View CV
       </Button>
@@ -109,20 +131,39 @@ const TeamCard: React.FC<typeof teamMembers[0]> = ({ name, email, expertise, lin
 
 const Teams: React.FC = () => {
   return (
-    <Container maxWidth="lg" className="tw-h-screen tw-flex tw-flex-col tw-py-8 tw-bg-gradient-to-r tw-from-blue-50 tw-to-indigo-50">
+    <Container
+      maxWidth="lg"
+      sx={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        paddingY: 8,
+      }}
+    >
       {/* Header Section */}
       <MainHeader />
 
-      <Box className="tw-text-center tw-my-8">
-        <Typography variant="h3" className="tw-font-bold tw-text-primary">
+      {/* Title Section */}
+      <Box sx={{ textAlign: 'center', marginY: 4 }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 'bold',
+            // color: 'primary.main',
+            marginBottom: 1,
+          }}
+        >
           Meet the Team
         </Typography>
-        <Typography variant="body1" className="tw-text-gray-600">
+        <Typography
+          variant="body1"
+          sx={{ color: 'text.secondary', fontSize: '1rem' }}
+        >
           Our dedicated professionals bringing innovation to life.
         </Typography>
       </Box>
 
-          <br />
+      {/* Team Cards */}
       <Grid container spacing={4}>
         {teamMembers.map((member, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
