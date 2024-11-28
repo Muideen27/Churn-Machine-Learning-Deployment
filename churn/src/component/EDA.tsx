@@ -4,7 +4,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MainHeader from './MainHeader';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { fetchUnivariateData, fetchBivariateData, fetchMultivariateData } from '../api/dataApi';
+// import UNDER DEVELOPMENT { fetchUnivariateData, fetchBivariateData, fetchMultivariateData } from '../api/dataApi';
+import { fetchUnivariateData } from '../api/dataApi';
 import Visualization from './Visualization';
 
 const features = [
@@ -78,37 +79,70 @@ const EDA: React.FC = () => {
     setVisualizationModalOpen(false);
   };
 
+// UNDER DEVELOPMENT  
 // Function to fetch data based on selected features and analysis type
+
+// const fetchVisualizationData = async () => {
+//   setLoading(true);
+//   setError(null);
+
+//   try {
+//       let data;
+
+//       if (analysisType === 'univariate' && selectedFeatures.length === 1) {
+//           data = await fetchUnivariateData(selectedFeatures[0]);
+//       } else if (analysisType === 'bivariate' && selectedFeatures.length === 2) {
+//           data = await fetchBivariateData(selectedFeatures[0], selectedFeatures[1]);
+//       } else if (analysisType === 'multivariate' && selectedFeatures.length >= 3) {
+//           data = await fetchMultivariateData(selectedFeatures);
+//       } else {
+//           throw new Error('Invalid feature selection or analysis type.');
+//       }
+
+//       console.log('Fetched data:', data); // Log data to check its structure
+//       setVisualizationData(data); // Pass data to state
+//       setVisualizationModalOpen(true); // Open the visualization modal
+//       setModalOpen(false);
+//   } catch (err) {
+//       console.error('Error during fetchVisualizationData:', err);
+//       setError(err instanceof Error ? err.message : 'Unknown error occurred.');
+//   } finally {
+//       setLoading(false);
+//   }
+// };
 
 const fetchVisualizationData = async () => {
   setLoading(true);
   setError(null);
 
   try {
-      let data;
+    let data;
 
-      if (analysisType === 'univariate' && selectedFeatures.length === 1) {
-          data = await fetchUnivariateData(selectedFeatures[0]);
-      } else if (analysisType === 'bivariate' && selectedFeatures.length === 2) {
-          data = await fetchBivariateData(selectedFeatures[0], selectedFeatures[1]);
-      } else if (analysisType === 'multivariate' && selectedFeatures.length >= 3) {
-          data = await fetchMultivariateData(selectedFeatures);
-      } else {
-          throw new Error('Invalid feature selection or analysis type.');
-      }
+    if (analysisType === 'univariate' && selectedFeatures.length === 1) {
+      data = await fetchUnivariateData(selectedFeatures[0]);
+    } else if (analysisType === 'bivariate' && selectedFeatures.length === 2) {
+      // Show a warning for bivariate analysis
+      throw new Error('Bivariate analysis is currently under development. Please try again later.');
+    } else if (analysisType === 'multivariate' && selectedFeatures.length >= 3) {
+      // Show a warning for multivariate analysis
+      throw new Error('Multivariate analysis is currently under development. Please try again later.');
+    } else {
+      throw new Error('Invalid feature selection or analysis type.');
+    }
 
-      console.log('Fetched data:', data); // Log data to check its structure
-      setVisualizationData(data); // Pass data to state
-      setVisualizationModalOpen(true); // Open the visualization modal
-      setModalOpen(false);
+    console.log('Fetched data:', data); // Log data to check its structure
+    setVisualizationData(data); // Pass data to state
+    setVisualizationModalOpen(true); // Open the visualization modal
+    setModalOpen(false);
   } catch (err) {
-      console.error('Error during fetchVisualizationData:', err);
-      setError(err instanceof Error ? err.message : 'Unknown error occurred.');
+    console.error('Error during fetchVisualizationData:', err);
+    setError(err instanceof Error ? err.message : 'Unknown error occurred.');
+    alert(err instanceof Error ? err.message : 'Unknown error occurred.'); // Show alert for under development
+    setModalOpen(false); // Close modal for unsupported analysis types
   } finally {
-      setLoading(false);
+    setLoading(false);
   }
 };
-
 
 
 // Handle the visualization type selection
@@ -283,8 +317,8 @@ const fetchVisualizationData = async () => {
         </Box>
       </Modal>
       
-       {/* Visualization Modal */}
-      <Modal open={visualizationModalOpen} onClose={handleVisualizationModalClose}>
+       {/* Visualization Modal ON DEVELOPMENT*/}
+      {/* <Modal open={visualizationModalOpen} onClose={handleVisualizationModalClose}>
         <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', mt: 10, borderRadius: 2, width: '80%', height: '80%' }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
             Visualization
@@ -305,7 +339,36 @@ const fetchVisualizationData = async () => {
             Close
           </Button>
         </Box>
+      </Modal> */}
+      {/* Visualization Modal */}
+      <Modal open={visualizationModalOpen} onClose={handleVisualizationModalClose}>
+        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', mt: 10, borderRadius: 2, width: '80%', height: '80%' }}>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+            Visualization
+          </Typography>
+          {visualizationData ? (
+            <>
+              {console.log("Visualization Data in Modal:", visualizationData)}
+              <Visualization
+                visualizationType={visualizationType}
+                data={visualizationData}
+                selectedFeatures={selectedFeatures}
+              />
+            </>
+          ) : (
+            <Typography>
+              {analysisType === 'bivariate' || analysisType === 'multivariate'
+                ? 'This analysis type is currently under development. Please try again later.'
+                : 'No data available for visualization.'}
+            </Typography>
+          )}
+          <Button variant="contained" color="secondary" onClick={handleVisualizationModalClose} sx={{ mt: 4 }}>
+            Close
+          </Button>
+        </Box>
       </Modal>
+
+
 
     </Container>
   );
