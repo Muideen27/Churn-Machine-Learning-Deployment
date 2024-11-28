@@ -21,7 +21,7 @@ const SignIn: React.FC<SignInProps> = ({ onClose, onSwitch }) => {
 
     try {
       console.log('Sending signin request with:', { email, password }); // Log request payload
-      const response = await axios.post('http://127.0.0.1:5000/auth/signin', {
+      const response = await axios.post('https://churn-machine-learning-deployment.onrender.com/auth/signin', {
         email,
         password,
       });

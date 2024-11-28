@@ -23,7 +23,7 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onSwitch }) => {
 
     try {
       console.log('Sending signup request with:', { email, password }); // Log request payload
-      const response = await axios.post<SignUpResponse>('http://127.0.0.1:5000/auth/signup', {
+      const response = await axios.post<SignUpResponse>('https://churn-machine-learning-deployment.onrender.com/auth/signup', {
         email,
         password,
       });
