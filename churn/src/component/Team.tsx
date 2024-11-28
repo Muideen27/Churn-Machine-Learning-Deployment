@@ -153,15 +153,7 @@ const TeamCard: React.FC<typeof teamMembers[0]> = ({
 
 const Teams: React.FC = () => {
   return (
-    <Container
-      maxWidth="lg"
-      sx={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        paddingY: 8,
-      }}
-    >
+    <Container maxWidth="lg" className="tw-h-full tw-flex tw-flex-col tw-py-8 tw-bg-white">
       {/* Header Section */}
       <MainHeader />
 
