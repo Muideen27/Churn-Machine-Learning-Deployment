@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenSignIn, onOpenSignUp }) => {
           <Toolbar disableGutters>
             {/* Logo Section (Left) */}
             <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
-              <img src="/assets/01.png" alt="FINTECH Bank Logo" style={{ height: 70, marginRight: 8 }} />
+              <img src="/01.png" alt="FINTECH Bank Logo" style={{ height: 70, marginRight: 8 }} />
               <Typography
                 variant="h6"
                 noWrap
