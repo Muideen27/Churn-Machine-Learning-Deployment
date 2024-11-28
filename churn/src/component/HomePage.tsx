@@ -133,7 +133,21 @@ const HomePage: React.FC = () => {
         </Box>
       </Box>
 
-      <Divider className="tw-my-8" />
+      <Divider
+        className="tw-my-8"
+        sx={{
+          height: '3px',
+          background: 'linear-gradient(to right, #4CAF50, #FF5722)',
+          animation: 'glow 2s ease-in-out infinite',
+          '@keyframes glow': {
+            '0%': { opacity: 0.7 },
+            '50%': { opacity: 1 },
+            '100%': { opacity: 0.7 },
+          },
+        }}
+      />
+
+      <br />
 
       {/* Call to Action */}
       <Box className="tw-text-center tw-mt-12">
