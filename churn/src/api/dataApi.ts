@@ -10,7 +10,7 @@ type AxiosError<T = any> = {
     message: string;
 };
 
-const API_BASE_URL = 'http://127.0.0.1:5000/api';
+const API_BASE_URL = 'https://churn-machine-learning-deployment.onrender.com/api';
 
 // Define response types based on the API responses
 interface UnivariateResponse {

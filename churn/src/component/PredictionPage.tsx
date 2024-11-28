@@ -87,7 +87,7 @@ const PredictionPage: React.FC = () => {
           : 3, // NGN
     };
   
-    const apiURL = 'http://127.0.0.1:5000/api/predict';
+    const apiURL = 'https://churn-machine-learning-deployment.onrender.com/api/predict';
   
     try {
       const response = await fetch(apiURL, {
