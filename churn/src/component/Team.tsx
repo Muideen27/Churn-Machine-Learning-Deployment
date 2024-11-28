@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Container, Grid, Card, CardContent, Avatar, Button, Divider } from '@mui/material';
+import { Box, Typography, Container, Grid, Card, Avatar, Button, Divider } from '@mui/material';
 import MainHeader from './MainHeader';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
@@ -7,7 +7,7 @@ const teamMembers = [
   {
     name: 'Muideen Ilori',
     email: 'ilorimuideen0000@gmail.com',
-    expertise: 'Software Engineering and Data Science',
+    expertise: 'Data Science Engineer',
     linkedin: 'https://www.linkedin.com/in/muideen-ilori-a2422a194/',
     cvLink: 'https://drive.google.com/file/d/1SEOKarVvUDd9NtPqRPrGc3acj9UY0DoS/view?usp=sharing',
     image: '/1.image.jpeg',
@@ -80,7 +80,7 @@ const TeamCard: React.FC<typeof teamMembers[0]> = ({
       <Box>
         <Typography
           variant="h6"
-          sx={{ fontWeight: 'bold', color: 'primary.main' }}
+          sx={{ fontWeight: 'bold' }}
         >
           {name}
         </Typography>
@@ -89,6 +89,12 @@ const TeamCard: React.FC<typeof teamMembers[0]> = ({
           sx={{ color: 'text.secondary', fontSize: '0.9rem' }}
         >
           {expertise}
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{ color: 'text.secondary', fontSize: '0.9rem', marginTop: '4px' }}
+        >
+          {email}
         </Typography>
       </Box>
     </Box>
@@ -100,7 +106,23 @@ const TeamCard: React.FC<typeof teamMembers[0]> = ({
     >
       {bio}
     </Typography>
-    <Divider sx={{ marginY: 2 }} />
+    {/* <Divider sx={{ marginY: 2 }} /> */}
+
+    {/* Animated Divider */}
+    <Divider
+        // className="tw-my-8"
+        sx={{
+          marginY: 2,
+          height: '3px',
+          background: 'linear-gradient(to right, #4CAF50, #FF5722)',
+          animation: 'glow 2s ease-in-out infinite',
+          '@keyframes glow': {
+            '0%': { opacity: 0.7 },
+            '50%': { opacity: 1 },
+            '100%': { opacity: 0.7 },
+          },
+        }}
+      />
 
     {/* Buttons Section */}
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
