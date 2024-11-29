@@ -67,6 +67,15 @@ const teamMembers = [
     image: '/7.image.jpeg',
     bio: 'Passionate about data-driven solutions and innovation.',
   },
+  {
+    name: 'Rashidat Oduyoye',
+    email: 'rashidatoduyoye@gmail.com ',
+    expertise: 'Data analysis',
+    linkedin: 'linkedIn.com/in/rashidat-oduyoye',
+    cvLink: ' https://github.com/adebisijoy',
+    image: '/8.image.jpeg',
+    bio: 'Data analyst at heart with a knack for turning data into actionable insights.',
+  },
 ];
 
 const TeamCard: React.FC<typeof teamMembers[0]> = ({
