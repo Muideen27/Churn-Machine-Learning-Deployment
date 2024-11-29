@@ -26,7 +26,7 @@ const ModelAnalysis: React.FC = () => {
               Performance Metrics Table
             </Typography>
             <img
-              src="/src/assets/analysisTable.png"
+              src="/analysisTable.png"
               alt="Performance Metrics Table"
               style={{
                 width: '100%',
@@ -86,7 +86,7 @@ const ModelAnalysis: React.FC = () => {
               Model Score Chart
             </Typography>
             <img
-              src="/src/assets/analysisChart.png"
+              src="/analysisChart.png"
               alt="Model Score Chart"
               style={{
                 width: '100%',
