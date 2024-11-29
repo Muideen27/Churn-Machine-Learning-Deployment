@@ -59,13 +59,13 @@ const teamMembers = [
     bio: 'Blends data analytics with storytelling to drive impactful change.',
   },
   {
-    name: 'Olanike Aladeojebi',
-    email: 'nikesolomi@gmail.com',
+    name: 'Adebisi Joy',
+    email: 'adebisijoy24@gmail.com',
     expertise: 'Data Scientist',
-    linkedin: 'https://linkedin.com/in/olanikealadeojebi',
-    cvLink: 'https://drive.google.com/file/d/6.image.jpeg/view',
-    image: '/6.image.jpeg',
-    bio: 'Blends data analytics with storytelling to drive impactful change.',
+    linkedin: ' https://www.linkedin.com/in/joy-joseph-adebisi-011945194?trk=contact-info',
+    cvLink: ' https://github.com/adebisijoy',
+    image: '/7.image.jpeg',
+    bio: 'Passionate about data-driven solutions and innovation.',
   },
 ];
 
