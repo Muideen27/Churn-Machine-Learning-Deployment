@@ -57,7 +57,7 @@ const LandingPage: React.FC = () => {
         {/* Right Side - SVG Image */}
         <Grid item xs={12} md={6} marginTop={10} className="tw-flex tw-justify-center">
           <img
-            src="/src/assets/02.svg"
+            src="02.svg"
             alt="Churn Prediction Illustration"
             className="tw-max-w-full tw-h-auto"
             style={{ maxWidth: '100%' }}
